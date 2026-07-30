@@ -5,6 +5,7 @@
   --bg-header: #ffffff;
   --bg-card: #ffffff;
   --bg-card-soft: #f7f8fb;
+  --bg-bubble-ai: #eef1f7;
   --bg-sidebar: #ffffff;
   --bg-input: #f4f5f8;
   --border-color: #e6e8ef;
@@ -44,6 +45,7 @@
   --bg-header: #121826;
   --bg-card: #121826;
   --bg-card-soft: #182131;
+  --bg-bubble-ai: #1c2536;
   --bg-sidebar: #121826;
   --bg-input: #0f1523;
   --border-color: rgba(255, 255, 255, 0.08);
@@ -955,13 +957,14 @@ body {
 }
 
 .msg-content {
-  background: var(--bg-card-soft);
-  border: 1px solid var(--border-color);
+  background: var(--bg-bubble-ai);
+  border: 1px solid var(--border-strong);
   padding: 11px 14px;
   border-radius: 14px;
   font-size: 13px;
   line-height: 1.62;
   color: var(--text-main);
+  box-shadow: var(--shadow-card);
 }
 
 .message-user .msg-content {
