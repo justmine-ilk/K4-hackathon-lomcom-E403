@@ -1,96 +1,79 @@
-# Mini Hackathon AI — Batch 03
+# VLearn AI Tutor — Strict Citation Enforcement & Context-Aware RAG Optimization
 
-**SPEC → Prototype → Demo.** Đây không phải cuộc thi code — đây là cuộc thi **tư duy sản phẩm AI**.
+**Mini Hackathon AI — Batch 03 / Khoá 4**  
+**Dự án:** Trợ lý Học viên VLearn AI Tutor (Hướng A)  
+**Loại:** Tối ưu tính năng có sẵn (RAG Pipeline & UI Citation)
 
-- Thời lượng: **1,5 ngày** (một ngày build + một buổi demo)
-- Nhóm: **4-5 người** · zone tối đa 5 nhóm · thi theo lớp
+---
 
-## Bắt đầu từ đâu?
+## 👥 Thành viên nhóm & Phân công nhiệm vụ
 
-1. Đọc **`01-de-bai.md`** để chọn hướng và hiểu tiêu chí.
-2. Mở **`02-guide.md`** — hướng dẫn từng giai đoạn, đứng ở đâu đọc mục đó.
-3. Viết spec theo **`03-template-ai-spec.md`** — deliverable trung tâm của cả sự kiện.
-4. Đọc **`04-rubric.md`** ngay từ đầu — biết trước bài được chấm theo tiêu chí nào.
+| Mã Học viên | Họ và Tên | Trách nhiệm chính | Phân công nhiệm vụ chi tiết |
+|---|---|---|---|
+| **2A202601440** | **Hoàng Bảo Huy** | Product Manager & UX Lead | Spec §1 & §2, Khảo sát người dùng (Đường A), Thiết kế kịch bản & Luồng hiển thị Citation trên UI (`spec.md`, `validation/`, `demo-slides.md`). |
+| **2A202601496** | **Trương Ái Linh** | Data Analyst & Eval Lead | Data Mining chatlog (Đường B), Cấu trúc lại RAG Chunking metadata theo Slide, Xây dựng Golden Set 25 cases & Script đánh giá (`spec.md` §7, `eval/`). |
+| **2A202601100** | **Nguyễn Quốc Anh** | Lead Engineer & System Integration | Lập trình RAG Pipeline, Thuật toán Strict Citation Enforcement, Tối ưu Latency (<3s), Xây dựng Prototype Web App (`codebase/`). |
 
-| File / thư mục | Nội dung |
-|---|---|
-| `01-de-bai.md` | Đề bài 3 hướng · 5 tiêu chí nghiệm thu · ràng buộc chung |
-| `02-guide.md` | Hướng dẫn 5 giai đoạn: khám phá → spec → build → đo & validate → demo |
-| `03-template-ai-spec.md` | Template AI Spec (nộp 23:59 ngày 1) |
-| `04-rubric.md` | Rubric 100 điểm (25 nộp checkpoint + 75 chấm bài) + checklist xác minh 6 mốc |
-| `data/` | Dữ liệu thật đã ẩn danh: chatlog VLearn tutor + 6 transcript bài giảng + 2 bộ slide bản hackathon — dùng để tìm bằng chứng và xây golden set |
-| `tham-khao/` | JTBD Playbook (PDF) + worksheet JTBD đầy đủ — đọc khi muốn đào sâu |
+---
 
-## Lịch — 6 mốc
+## 📌 Checkpoint 1 — Canvas 7 dòng
 
-| Mốc | Khoá 3 | Khoá 4 |
-|---|---|---|
-| Khai mạc + phát đề | 09:00 ngày 1 | 14:00 ngày 1 |
-| CP1 · Chốt Canvas | 10:00 ngày 1 | 15:00 ngày 1 |
-| CP2 · Show được thứ bấm được | 12:00 ngày 1 | 17:00 ngày 1 |
-| CP3 · AI chạy thật + đo lượt đầu | 16:00 ngày 1 | 10:30 ngày 2 |
-| CP4 · Chốt tiến độ — spec nộp hạn cứng **23:59 ngày 1** | 17:30 ngày 1 | 12:00 ngày 2 |
-| CP5 · Xác minh + validation + dry run | 09:00 ngày 2 | 14:00 ngày 2 |
-| CP6 · Demo | 10:00 ngày 2 | 15:00 ngày 2 |
+1. **Hướng chọn:** **Hướng A — VLearn AI Tutor** (Tối ưu tính năng trợ lý học tập có sẵn).
+2. **Job Executor (Người thực thi việc):** Học viên đang vừa xem tài liệu bài giảng (Slide/Transcript) vừa hỏi AI Tutor để làm rõ khái niệm bài học.
+3. **Pain Statement:** Khi học viên bôi đen hoặc chọn một trang slide để hỏi AI Tutor, AI thường trả lời không kèm trích dẫn nguồn (46.15%), trích dẫn sai số trang (35.20%), hoặc báo "không tìm thấy dữ liệu" ngay trên trang học viên đang xem (13.80%), khiến học viên mất 3-5 phút tự tra cứu lại và bị ngắt quãng mạch tư duy.
+4. **Bằng chứng đầu tiên:**
+   - *Định lượng (Mining 2,522 log entries):* 582/1,261 turn trả lời thiếu citation (`citations = []`); 239/679 turn bị lệch số trang (Mismatch); 174 turn RAG thất bại; 98 turn latency > 5s (max 23.8s).
+   - *Định tính:* Turn T1084 (Slide 4 → cite trang 70), Turn T0352 (Trang 25 → cite 20, 42), Turn T0157 (chọn Trang 12 → báo không có dữ liệu trang 12).
+5. **Lát cắt MỘT CÂU:** Học viên đang đọc Slide X chọn 1 đoạn văn để hỏi AI Tutor -> AI Tutor trả lời chính xác thông tin bài học dựa đúng trên Slide X/đoạn X kèm Citation chuẩn `[Trang X, Đoạn Y]` trong dưới 3 giây và cho phép click nhảy trực tiếp đến Slide & highlight đoạn nguồn trên giao diện UI.
+6. **Mức Automation & Lý do:** **Conditional Automation** (AI tự động trả lời kèm trích dẫn khi có căn cứ chắc chắn trong Slide; khi thiếu dữ liệu hoặc mơ hồ sẽ tự động giới hạn phạm vi & đề nghị học viên xác nhận/chuyển câu hỏi cho Giảng viên/TA) — Lý do: Cost of error cao (học viên tiếp thu sai kiến thức học tập hoặc mất niềm tin vào hệ thống).
+7. **Willing Users dự kiến (≥3):**
+   - Đặng Việt Hùng (Học viên Khoá AI Product K4)
+   - Trần Mai Phương (Học viên VLearn AI Master)
+   - Lê Minh Triết (Học viên AI Application K3)
 
-Mỗi mốc cần show gì và được xác minh thế nào: xem bảng trong `04-rubric.md`.
+---
 
-## Nộp bài
-
-Một repo nhóm, cấu trúc như sau. Spec chốt lúc 23:59 ngày 1; bản hoàn chỉnh trước CP6.
+## 📁 Cấu trúc Repository
 
 ```
 repo/
-├── README.md          ← thành viên (mã HV + tên) + phân công có tên từng phần
-├── spec.md            ← AI Spec theo 03-template-ai-spec.md
-├── demo-slides.pdf    ← slide 6 trang theo 02-guide.md §5.1
-├── codebase/          ← prototype (ghi rõ phần nào mock)
-├── eval/              ← golden set + bảng kết quả các lượt chạy
-├── validation/        ← feedback log từ vòng user test
-└── reflection/        ← mỗi người 1 file
+├── README.md                  ← Thông tin nhóm, Canvas CP1, hướng dẫn chạy dự án
+├── spec.md                    ← AI Spec chuẩn 9 phần (Chốt 23:59 N1)
+├── demo-slides.md             ← Kịch bản & cấu trúc Slide presentation 6 trang (CP6)
+├── codebase/                  ← VLearn AI Tutor Web App & Engine Prototype
+│   ├── index.html             ← Giao diện dual-pane (Viewer slide + AI Chat interactive)
+│   ├── styles.css             ← Glassmorphism design system & highlight styles
+│   ├── app.js                 ← Core UI logic, Citation parser & Gemini integration
+│   └── rag_engine.js          ← Slide-level metadata chunking & vector RAG indexer
+├── eval/                      ← Bộ kiểm thử Golden Set & Script đo đạc
+│   ├── golden_set.json        ← 25 test cases phủ 4 lớp chỗ khó & chatlog thật
+│   ├── eval_runner.py         ← Script kiểm thử tự động (Accuracy, Citation Rate, Latency)
+│   └── eval_report.md         ← Bảng kết quả chạy đo đạc so với Quality Bar (85%)
+├── validation/                ← Kết quả kiểm thử với người dùng thật
+│   ├── feedback_log.md        ← Log 5 phỏng vấn/dùng thử với học viên ngoài nhóm
+│   └── changelog.md           ← Lịch sử cải tiến sản phẩm từ feedback
+└── reflection/                ← Bài thu hoạch cá nhân của từng thành viên
+    ├── reflection_hoang_bao_huy.md
+    ├── reflection_truong_ai_linh.md
+    └── reflection_nguyen_quoc_anh.md
 ```
 
-## Chấm điểm
+---
 
-Tổng **100 điểm = 25 điểm nộp checkpoint + 75 điểm chấm bài nộp**. Chi tiết từng ý điểm: `04-rubric.md`.
+## 🚀 Hướng dẫn Chạy Prototype & Eval
 
-**25 điểm nộp — mỗi checkpoint 5 điểm (CP1-CP5):** nộp đúng hạn → 5 điểm · nộp muộn → 0 điểm cho mốc đó. Mỗi thành viên nộp riêng, cả nhóm dùng chung một link repo.
+### 1. Trải nghiệm VLearn AI Tutor Web App (`codebase/`)
+- Mở tệp [`codebase/index.html`](file:///C:/Users/LEGION%205/Downloads/Batch03-K4-AI-Product-Hackathon-main/Batch03-K4-AI-Product-Hackathon-main/codebase/index.html) trực tiếp trong trình duyệt web (Chrome, Edge, Firefox).
+- Giao diện gồm 2 cột:
+  - **Bên trái:** Trình xem Slide / Bài giảng tương tác với đầy đủ chỉ số Trang và Đoạn văn.
+  - **Bên phải:** AI Tutor Chatbot hỗ trợ hỏi đáp real-time.
+- Thử chọn một trang slide (ví dụ: Trang 30 hoặc Slide 4) và hỏi câu hỏi liên quan.
+- **Tính năng nổi bật:** Click vào thẻ Citation `[Trang X, Đoạn Y]` trong câu trả lời của AI → Trình duyệt sẽ tự động cuộn đến Trang X và tô sáng (highlight) đoạn văn nguồn Y ở cột bên trái!
 
-**75 điểm chấm — trên artifact trong repo, mỗi con điểm trỏ về một file:**
-
-| Khối | Điểm | Chấm trên file nào |
-|---|---|---|
-| R1 · Bằng chứng & impact | 15 | `spec.md` §1-§2 + log khảo sát/mining |
-| R2 · Lát cắt & thiết kế | 15 | `spec.md` §4 |
-| R3 · Chỗ khó & kịch bản rủi ro | 11 | `spec.md` §5-§6 |
-| R4 · Kiểm thử | 15 | `spec.md` §7 + `eval/` |
-| R5 · Prototype chạy được | 8 | `codebase/` + demo |
-| R6 · Validation với user | 8 | `validation/` |
-| R7 · Quy trình & repo | 3 | cấu trúc repo |
-
-Ba điều nên biết trước khi làm:
-
-- Điểm dựa trên **chuỗi quyết định và bằng chứng**, không dựa trên mức độ hoành tráng của sản phẩm.
-- Kết quả đo **ghi nhận trung thực** — kể cả khi không đạt mục tiêu nhóm tự đặt — vẫn được tính đủ điểm. Số liệu bị chỉnh sửa hoặc che giấu sẽ không được tính.
-- Reflection cá nhân chấm riêng theo rubric của khoá. Điểm vòng demo, chấm chéo trong zone và thưởng thêm (nếu có) theo thể lệ công bố lúc khai mạc.
-
-## Luật chung
-
-1. Prototype có 3 mức **Sketch / Mock / Working** — mức nào cũng bắt buộc **≥1 lời gọi AI chạy thật**.
-2. **Vibe-coding rule:** dùng AI để build thoải mái, nhưng không giải thích được phần có tên mình thì phần đó 0 điểm (kiểm tra tại CP5).
-3. **Quality bar** chốt tại spec.md 23:59 ngày 1 và giữ nguyên sau đó.
-4. Chỉ dùng dữ liệu trong `data/` hoặc dữ liệu giả tự sinh — không dùng dữ liệu thật của người thật. Không commit API key.
-5. Tuân thủ **quy định bảo mật dữ liệu** bên dưới — đây là điều kiện để được cấp data.
-
-## Bảo mật dữ liệu được cung cấp
-
-Dữ liệu trong `data/` là dữ liệu thật của khoá học (đã ẩn danh), cấp riêng cho hackathon này. Khi nhận data, nhóm cam kết:
-
-1. **Chỉ dùng trong phạm vi hackathon** — cho việc tìm bằng chứng, xây golden set và build prototype. Không dùng cho mục đích khác.
-2. **Không chia sẻ ra ngoài khoá học** — không đăng lên mạng xã hội, không gửi cho người ngoài, không đưa vào bất kỳ dataset hay repo công khai nào.
-3. **Không commit data pack vào repo nộp bài** — repo nhóm chỉ chứa trích dẫn ngắn để minh hoạ (vài dòng); golden set trích từ data ghi rõ mã đoạn/mã hội thoại thay vì dán nguyên văn dài.
-4. **Cẩn trọng khi đưa data vào công cụ ngoài** — chỉ đưa phần tối thiểu cần cho việc đang làm; lưu ý API/công cụ free tier có thể dùng dữ liệu để huấn luyện (xem `02-guide.md` §3.4).
-5. **Không cố suy ngược danh tính** từ dữ liệu đã ẩn danh ([học viên], mã U/C/T/M).
-6. Sau sự kiện, **xoá các bản sao data pack** khỏi máy cá nhân và các công cụ đã upload nếu ban tổ chức yêu cầu.
-
-Vi phạm được xử lý theo quy định của khoá và có thể ảnh hưởng trực tiếp đến điểm của nhóm.
+### 2. Chạy Script Đánh giá Tự động (`eval/`)
+Yêu cầu: Python 3.8+
+```bash
+cd eval
+python eval_runner.py
+```
+Script sẽ khởi chạy bộ 25 test cases trong `golden_set.json` và in báo cáo chi tiết kết quả (Accuracy Rate, Strict Citation Rate, Latency average).
