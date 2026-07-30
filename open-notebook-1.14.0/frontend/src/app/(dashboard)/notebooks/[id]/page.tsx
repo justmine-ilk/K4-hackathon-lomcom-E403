@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { AppShell } from '@/components/layout/AppShell'
+import { Button } from '@/components/ui/button'
 import { NotebookHeader } from '../components/NotebookHeader'
 import { SourcesColumn } from '../components/SourcesColumn'
 import { NotesColumn } from '../components/NotesColumn'
@@ -16,7 +17,7 @@ import { useIsDesktop } from '@/lib/hooks/use-media-query'
 import { useTranslation } from '@/lib/hooks/use-translation'
 import { cn } from '@/lib/utils'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { FileText, StickyNote, MessageSquare } from 'lucide-react'
+import { FileText, StickyNote, MessageSquare, ChevronRight } from 'lucide-react'
 import {
   applyBulkSourceContext,
   applyBulkNoteContext,
@@ -57,7 +58,10 @@ export default function NotebookPage() {
   const isDesktop = useIsDesktop()
 
   // Mobile tab state (Sources, Notes, or Chat)
-  const [mobileActiveTab, setMobileActiveTab] = useState<'sources' | 'notes' | 'chat'>('chat')
+  const [mobileActiveTab, setMobileActiveTab] = useState<'sources' | 'notes' | 'chat'>('sources')
+
+  // Chat Agent State
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   // Context selection state
   const [contextSelections, setContextSelections] = useState<ContextSelections>({
@@ -169,10 +173,10 @@ export default function NotebookPage() {
                       <FileText className="h-4 w-4" />
                       {t('navigation.sources')}
                     </TabsTrigger>
-                    <TabsTrigger value="notes" className="gap-2">
+                    {/* <TabsTrigger value="notes" className="gap-2">
                       <StickyNote className="h-4 w-4" />
                       {t('common.notes')}
-                    </TabsTrigger>
+                    </TabsTrigger> */}
                     <TabsTrigger value="chat" className="gap-2">
                       <MessageSquare className="h-4 w-4" />
                       {t('common.chat')}
@@ -198,7 +202,7 @@ export default function NotebookPage() {
                     fetchNextPage={fetchNextPage}
                   />
                 )}
-                {mobileActiveTab === 'notes' && (
+                {/* {mobileActiveTab === 'notes' && (
                   <NotesColumn
                     notes={notes}
                     isLoading={notesLoading}
@@ -207,7 +211,7 @@ export default function NotebookPage() {
                     onContextModeChange={handleNoteContextModeChange}
                     onBulkContextModeChange={handleBulkNoteContext}
                   />
-                )}
+                )} */}
                 {mobileActiveTab === 'chat' && (
                   <ChatColumn
                     notebookId={notebookId}
@@ -220,12 +224,12 @@ export default function NotebookPage() {
             </>
           )}
 
-          {/* Desktop: Collapsible columns layout */}
+          {/* Desktop: Collapsible columns layout
           <div className={cn(
             'hidden lg:flex h-full min-h-0 gap-6 transition-all duration-150',
             'flex-row'
           )}>
-            {/* Sources Column */}
+            Sources Column
             <div className={cn(
               'transition-all duration-150',
               sourcesCollapsed ? 'w-12 flex-shrink-0' : 'flex-none basis-1/3'
@@ -245,7 +249,7 @@ export default function NotebookPage() {
               />
             </div>
 
-            {/* Notes Column */}
+            Notes Column
             <div className={cn(
               'transition-all duration-150',
               notesCollapsed ? 'w-12 flex-shrink-0' : 'flex-none basis-1/3'
@@ -260,7 +264,7 @@ export default function NotebookPage() {
               />
             </div>
 
-            {/* Chat Column - always expanded, takes remaining space */}
+            Chat Column - always expanded, takes remaining space
             <div className="transition-all duration-150 flex-1 min-w-0 lg:pr-6 lg:-mr-6">
               <ChatColumn
                 notebookId={notebookId}
@@ -268,6 +272,68 @@ export default function NotebookPage() {
                 sources={sources}
                 sourcesLoading={sourcesLoading}
               />
+            </div>
+          </div> */}
+          {/* Desktop: Dynamic Layout (Sources & Collapsible Chat) */}
+          <div className="hidden lg:flex h-full min-h-0 gap-6 transition-all duration-300 flex-row">
+
+            {/* Sources Column - Giờ sẽ chiếm toàn bộ không gian còn lại (flex-1) */}
+            <div className="flex-1 min-w-0 transition-all duration-300 h-full">
+              <SourcesColumn
+                sources={sources}
+                isLoading={sourcesLoading}
+                notebookId={notebookId}
+                notebookName={notebook?.name}
+                onRefresh={refetchSources}
+                contextSelections={contextSelections.sources}
+                onContextModeChange={handleSourceContextModeChange}
+                onBulkContextModeChange={handleBulkSourceContext}
+                hasNextPage={hasNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+                fetchNextPage={fetchNextPage}
+              />
+            </div>
+
+            {/* Chat Column - Thu gọn thành Icon hoặc mở rộng */}
+            <div className={cn(
+              "transition-all duration-300 flex-shrink-0 flex flex-col h-full",
+              isChatOpen ? "w-[450px]" : "w-12"
+            )}>
+              {isChatOpen ? (
+                <div className="w-full h-full relative animate-in slide-in-from-right-4">
+                  {/* Nút đóng Chat */}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute -left-12 top-2 z-10 bg-background border shadow-sm hover:bg-accent rounded-l-md rounded-r-none"
+                    onClick={() => setIsChatOpen(false)}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+
+                  <ChatColumn
+                    notebookId={notebookId}
+                    contextSelections={contextSelections}
+                    sources={sources}
+                    sourcesLoading={sourcesLoading}
+                  />
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="h-full w-full flex flex-col items-center justify-start py-6 gap-4 bg-card hover:bg-accent"
+                  onClick={() => setIsChatOpen(true)}
+                  title={t('common.chat')}
+                >
+                  <MessageSquare className="h-5 w-5 text-muted-foreground" />
+                  <span
+                    style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+                    className="text-sm font-medium tracking-widest text-muted-foreground mt-4"
+                  >
+                    {t('common.chat')}
+                  </span>
+                </Button>
+              )}
             </div>
           </div>
         </div>

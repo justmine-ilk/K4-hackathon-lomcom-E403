@@ -41,19 +41,20 @@ import {
   Plus,
   Wrench,
   Command,
+  GraduationCap,
 } from 'lucide-react'
 
 const getNavigation = (t: TFunction) => [
-  {
-    title: t('navigation.collect'),
-    items: [
-      { name: t('navigation.sources'), href: '/sources', icon: FileText },
-    ],
-  },
+  // {
+  //   title: t('navigation.collect'),
+  //   items: [
+  //     { name: t('navigation.sources'), href: '/sources', icon: FileText },
+  //   ],
+  // },
   {
     title: t('navigation.process'),
     items: [
-      { name: t('navigation.notebooks'), href: '/notebooks', icon: Book },
+      { name: t('navigation.notebooks'), href: '/notebooks', icon: GraduationCap },
       //     { name: t('navigation.askAndSearch'), href: '/search', icon: Search },
     ],
   },
@@ -163,7 +164,7 @@ export function AppSidebar() {
             isCollapsed ? 'px-2' : 'px-3'
           )}
         >
-          <div
+          {/* <div
             className={cn(
               'mb-4',
               isCollapsed ? 'px-0' : 'px-3'
@@ -226,7 +227,7 @@ export function AppSidebar() {
                   <Book className="h-4 w-4" />
                   {t('common.notebook')}
                 </DropdownMenuItem>
-                {/* <DropdownMenuItem
+                <DropdownMenuItem
                   onSelect={(event) => {
                     event.preventDefault()
                     handleCreateSelection('podcast')
@@ -234,11 +235,11 @@ export function AppSidebar() {
                   className="gap-2"
                 >
                   <Mic className="h-4 w-4" />
-                  {t('common.podcast')} */}
-                {/* </DropdownMenuItem> */}
+                  {t('common.podcast')}
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
+          </div> */}
 
           {navigation.map((section, index) => (
             <div key={section.title}>
@@ -298,10 +299,10 @@ export function AppSidebar() {
             isCollapsed && 'px-2'
           )}
         >
-          {/* Command Palette hint */}
+          {/* Command Palette hint
           {!isCollapsed && (
             <div className="px-3 py-1.5 text-xs text-sidebar-foreground/60">
-              {/* <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between">
                 <span className="flex items-center gap-1.5">
                   <Command className="h-3 w-3" />
                   {t('common.quickActions')}
@@ -309,12 +310,12 @@ export function AppSidebar() {
                 <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
                   {isMac ? <span className="text-xs">⌘</span> : <span>Ctrl+</span>}K
                 </kbd>
-              </div> */}
+              </div> *
               <p className="mt-1 text-[10px] text-sidebar-foreground/40">
                 {t('common.quickActionsDesc')}
               </p>
             </div>
-          )}
+          )} */}
 
           <div
             className={cn(
