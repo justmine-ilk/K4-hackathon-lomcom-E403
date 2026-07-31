@@ -119,12 +119,48 @@ export function SlidePreviewColumn({ selectedSourceId, sources, isLoading }: Sli
       <Card className={`h-full flex flex-col transition-all duration-200 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm bg-card overflow-hidden ${isFullscreen ? 'fixed inset-4 z-50 shadow-2xl bg-background' : ''}`}>
         
         {/* PDF / Slide Toolbar matching target UI */}
-        {/* PDF / Slide Toolbar matching target UI */}
-        <CardHeader className="py-2 px-4 border-b flex flex-row items-center justify-end space-y-0 flex-shrink-0 bg-slate-50/70 dark:bg-slate-900/70">
-          
-          {/* REMOVED: Pagination and Zoom controls to prevent duplication with native PDF iframe */}
+        {/* <CardHeader className="py-2.5 px-4 border-b flex flex-row items-center justify-between space-y-0 flex-shrink-0 bg-slate-50/70 dark:bg-slate-900/70">
+          Pagination Toolbar `< 1 / 47 >`
+          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1 px-2 rounded-xl border shadow-sm text-xs font-semibold text-slate-700 dark:text-slate-200">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 hover:text-slate-800"
+              title="Trang trước"
+            >
+              <ChevronLeft className="h-3.5 w-3.5" />
+            </button>
+            <span className="px-1 min-w-[50px] text-center font-mono">
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 hover:text-slate-800"
+              title="Trang tiếp"
+            >
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
 
-          {/* Search, Fullscreen & Collapse Actions */}
+          Zoom Controls `- 100% +`
+          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1 px-2 rounded-xl border shadow-sm text-xs font-semibold text-slate-700 dark:text-slate-200">
+            <button
+              onClick={() => setZoomLevel(prev => Math.max(50, prev - 10))}
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500"
+              title="Thu nhỏ"
+            >
+              <ZoomOut className="h-3.5 w-3.5" />
+            </button>
+            <span className="px-1 font-mono min-w-[42px] text-center">{zoomLevel}%</span>
+            <button
+              onClick={() => setZoomLevel(prev => Math.min(200, prev + 10))}
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500"
+              title="Phóng to"
+            >
+              <ZoomIn className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          Search, Fullscreen & Collapse Actions
           <div className="flex items-center gap-1">
             <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-500 hover:text-slate-800" title="Tìm kiếm">
               <Search className="h-3.5 w-3.5" />
@@ -140,10 +176,10 @@ export function SlidePreviewColumn({ selectedSourceId, sources, isLoading }: Sli
             </Button>
             {collapseButton}
           </div>
-        </CardHeader>
+        </CardHeader> */}
 
         {/* Main Document Canvas Window */}
-        <CardContent className="flex-1 p-6 overflow-y-auto flex flex-col bg-[#F4F6FB] dark:bg-slate-950 items-center justify-start">
+        {/* <CardContent className="flex-1 p-6 overflow-y-auto flex flex-col bg-[#F4F6FB] dark:bg-slate-950 items-center justify-start">
           {!selectedSourceId ? (
             <div className="flex flex-col items-center justify-center h-full text-center p-6 space-y-3 my-auto">
               <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
@@ -162,7 +198,7 @@ export function SlidePreviewColumn({ selectedSourceId, sources, isLoading }: Sli
               <span className="text-xs text-muted-foreground font-medium">Đang nạp nội dung bài học...</span>
             </div>
           ) : pdfUrl ? (
-            /* Render Live PDF File Iframe Viewer */
+            Render Live PDF File Iframe Viewer 
             <div className="w-full h-full min-h-[550px] flex-1 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xl bg-white dark:bg-slate-900">
               <iframe
                 src={pdfUrl}
@@ -171,18 +207,18 @@ export function SlidePreviewColumn({ selectedSourceId, sources, isLoading }: Sli
               />
             </div>
           ) : (
-            /* Render Real Extracted Document Text in Styled Paper View */
+            Render Real Extracted Document Text in Styled Paper View 
             <div
               className="w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xl p-8 space-y-6 text-slate-800 dark:text-slate-200 transition-transform"
               style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top center' }}
             >
-              {/* Header Title Metadata */}
+               Header Title Metadata
               <div className="flex items-center justify-between border-b pb-4 text-[11px] font-mono tracking-wider uppercase text-slate-400 font-semibold">
                 <span className="truncate max-w-[280px]">{activeTitle}</span>
                 <span>DOC PREVIEW</span>
               </div>
 
-              {/* Main Text Content */}
+              Main Text Content
               <div className="prose dark:prose-invert max-w-none text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-300">
                 {realTextContent ? (
                   <MarkdownRenderer>
@@ -193,6 +229,62 @@ export function SlidePreviewColumn({ selectedSourceId, sources, isLoading }: Sli
                     Không tìm thấy nội dung văn bản thô của tài liệu này. Hãy kiểm tra trạng thái xử lý ở cột bên trái.
                   </p>
                 )}
+              </div>
+            </div>
+          )}
+        </CardContent> */}
+        <CardContent className="flex-1 p-0 overflow-hidden flex flex-col bg-[#F4F6FB] dark:bg-slate-950 w-full h-full">
+          {!selectedSourceId ? (
+            <div className="flex flex-col items-center justify-center h-full text-center p-6 space-y-3 m-auto">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                <BookOpen className="h-7 w-7" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-200">Chưa chọn bài học / slide</p>
+                <p className="text-xs text-muted-foreground max-w-[260px]">
+                  Bấm vào một Nguồn (Source) ở cột bên trái để hiển thị Slide hoặc Tài liệu tại đây.
+                </p>
+              </div>
+            </div>
+          ) : isLoading || loadingContent ? (
+            <div className="flex flex-col items-center justify-center h-full gap-2 p-8 m-auto">
+              <LoadingSpinner size="lg" />
+              <span className="text-xs text-muted-foreground font-medium">Đang nạp nội dung bài học...</span>
+            </div>
+          ) : pdfUrl ? (
+            /* Render Live PDF File Iframe Viewer - Lấp đầy hoàn toàn khoảng trống */
+            <div className="w-full h-full flex-1 overflow-hidden bg-white dark:bg-slate-900">
+              <iframe
+                src={pdfUrl}
+                className="w-full h-full border-0 bg-white"
+                title={activeTitle}
+              />
+            </div>
+          ) : (
+            /* Render Real Extracted Document Text in Styled Paper View - Thêm cuộn và padding ở đây */
+            <div className="w-full h-full overflow-y-auto p-6 flex flex-col items-center">
+              <div
+                className="w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-xl p-8 space-y-6 text-slate-800 dark:text-slate-200 transition-transform h-max"
+                style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top center' }}
+              >
+                {/* Header Title Metadata */}
+                <div className="flex items-center justify-between border-b pb-4 text-[11px] font-mono tracking-wider uppercase text-slate-400 font-semibold">
+                  <span className="truncate max-w-[280px]">{activeTitle}</span>
+                  <span>DOC PREVIEW</span>
+                </div>
+
+                {/* Main Text Content */}
+                <div className="prose dark:prose-invert max-w-none text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                  {realTextContent ? (
+                    <MarkdownRenderer>
+                      {realTextContent}
+                    </MarkdownRenderer>
+                  ) : (
+                    <p className="text-xs text-muted-foreground italic text-center py-6">
+                      Không tìm thấy nội dung văn bản thô của tài liệu này. Hãy kiểm tra trạng thái xử lý ở cột bên trái.
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           )}
