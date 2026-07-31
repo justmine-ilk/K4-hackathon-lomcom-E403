@@ -34,7 +34,7 @@ export const esES = {
     polish: "Polski",
     turkish: "Türkçe",
     source: "Fuente",
-    notebook: "Cuaderno",
+    notebook: "Class",
     podcast: "Podcast",
     quickActions: "Acciones rápidas",
     quickActionsDesc: "Navegación, búsqueda, preguntar, tema",
