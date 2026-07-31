@@ -119,46 +119,10 @@ export function SlidePreviewColumn({ selectedSourceId, sources, isLoading }: Sli
       <Card className={`h-full flex flex-col transition-all duration-200 border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm bg-card overflow-hidden ${isFullscreen ? 'fixed inset-4 z-50 shadow-2xl bg-background' : ''}`}>
         
         {/* PDF / Slide Toolbar matching target UI */}
-        <CardHeader className="py-2.5 px-4 border-b flex flex-row items-center justify-between space-y-0 flex-shrink-0 bg-slate-50/70 dark:bg-slate-900/70">
-          {/* Pagination Toolbar `< 1 / 47 >` */}
-          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1 px-2 rounded-xl border shadow-sm text-xs font-semibold text-slate-700 dark:text-slate-200">
-            <button
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 hover:text-slate-800"
-              title="Trang trước"
-            >
-              <ChevronLeft className="h-3.5 w-3.5" />
-            </button>
-            <span className="px-1 min-w-[50px] text-center font-mono">
-              {currentPage} / {totalPages}
-            </span>
-            <button
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 hover:text-slate-800"
-              title="Trang tiếp"
-            >
-              <ChevronRight className="h-3.5 w-3.5" />
-            </button>
-          </div>
-
-          {/* Zoom Controls `- 100% +` */}
-          <div className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1 px-2 rounded-xl border shadow-sm text-xs font-semibold text-slate-700 dark:text-slate-200">
-            <button
-              onClick={() => setZoomLevel(prev => Math.max(50, prev - 10))}
-              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500"
-              title="Thu nhỏ"
-            >
-              <ZoomOut className="h-3.5 w-3.5" />
-            </button>
-            <span className="px-1 font-mono min-w-[42px] text-center">{zoomLevel}%</span>
-            <button
-              onClick={() => setZoomLevel(prev => Math.min(200, prev + 10))}
-              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500"
-              title="Phóng to"
-            >
-              <ZoomIn className="h-3.5 w-3.5" />
-            </button>
-          </div>
+        {/* PDF / Slide Toolbar matching target UI */}
+        <CardHeader className="py-2 px-4 border-b flex flex-row items-center justify-end space-y-0 flex-shrink-0 bg-slate-50/70 dark:bg-slate-900/70">
+          
+          {/* REMOVED: Pagination and Zoom controls to prevent duplication with native PDF iframe */}
 
           {/* Search, Fullscreen & Collapse Actions */}
           <div className="flex items-center gap-1">

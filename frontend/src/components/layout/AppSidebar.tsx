@@ -40,29 +40,30 @@ import {
   Plus,
   Wrench,
   Command,
+  GraduationCap
 } from 'lucide-react'
 
 const getNavigation = (t: TFunction) => [
   {
     title: t('navigation.process'),
     items: [
-      { name: t('navigation.notebooks'), href: '/notebooks', icon: Book, iconClass: 'text-teal' },
-      { name: t('navigation.askAndSearch'), href: '/search', icon: Search, iconClass: undefined },
+      { name: t('navigation.notebooks'), href: '/notebooks', icon: GraduationCap, iconClass: 'text-teal' },
+      // { name: t('navigation.askAndSearch'), href: '/search', icon: Search, iconClass: undefined },
     ],
   },
-  {
-    title: t('navigation.create'),
-    items: [
-      { name: t('navigation.podcasts'), href: '/podcasts', icon: Mic, iconClass: 'text-mauve' },
-    ],
-  },
+  // {
+  //   title: t('navigation.create'),
+  //   items: [
+  //     { name: t('navigation.podcasts'), href: '/podcasts', icon: Mic, iconClass: 'text-mauve' },
+  //   ],
+  // },
   {
     title: t('navigation.manage'),
     items: [
       { name: t('navigation.models'), href: '/settings/api-keys', icon: Bot, iconClass: undefined },
       { name: t('navigation.transformations'), href: '/transformations', icon: Shuffle, iconClass: undefined },
       { name: t('navigation.settings'), href: '/settings', icon: Settings, iconClass: undefined },
-      { name: t('navigation.advanced'), href: '/advanced', icon: Wrench, iconClass: undefined },
+      // { name: t('navigation.advanced'), href: '/advanced', icon: Wrench, iconClass: undefined },
     ],
   },
 ] as const
@@ -298,7 +299,7 @@ export function AppSidebar() {
           )}
         >
           {/* Command Palette hint */}
-          {!isCollapsed && (
+          {/*           {!isCollapsed && (
             <div className="px-3 py-1.5 text-xs text-sidebar-foreground/60">
               <div className="flex items-center justify-between">
                  <span className="flex items-center gap-1.5">
@@ -313,7 +314,7 @@ export function AppSidebar() {
                 {t('common.quickActionsDesc')}
               </p>
             </div>
-          )}
+          )} */}
 
            <div
             className={cn(
