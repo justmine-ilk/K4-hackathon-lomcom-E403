@@ -18,9 +18,12 @@ import {
   Sparkles,
   Paperclip,
   RotateCw,
+  RefreshCw,
+  Plus,
   X,
   Sigma
 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
 import {
   SourceChatMessage,
@@ -62,6 +65,7 @@ interface ChatPanelProps {
   contextType?: 'source' | 'notebook'
   notebookContextStats?: NotebookContextStats
   notebookId?: string
+  onRefreshChat?: () => void | Promise<void>
 }
 
 export function ChatPanel({
@@ -81,10 +85,12 @@ export function ChatPanel({
   title,
   contextType = 'source',
   notebookContextStats,
-  notebookId
+  notebookId,
+  onRefreshChat
 }: ChatPanelProps) {
   const { t } = useTranslation()
   const [sessionManagerOpen, setSessionManagerOpen] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { openModal } = useModalManager()
@@ -101,6 +107,17 @@ export function ChatPanel({
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, isStreaming])
+
+  const handleRefresh = async () => {
+    if (onRefreshChat && !isRefreshing) {
+      setIsRefreshing(true)
+      try {
+        await onRefreshChat()
+      } finally {
+        setIsRefreshing(false)
+      }
+    }
+  }
 
   return (
     <>
@@ -119,14 +136,42 @@ export function ChatPanel({
             </div>
 
             <div className="flex items-center gap-1">
+              {onRefreshChat && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 text-slate-500 hover:text-slate-800"
+                  onClick={handleRefresh}
+                  disabled={isRefreshing || isStreaming}
+                  title={t('chat.refreshChat') || "Làm mới cuộc trò chuyện"}
+                  data-testid="refresh-chat-button"
+                >
+                  <RefreshCw className={cn("h-3.5 w-3.5", isRefreshing && "animate-spin")} />
+                </Button>
+              )}
+
+              {onCreateSession && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 text-slate-500 hover:text-slate-800"
+                  onClick={() => onCreateSession(t('chat.newChat') || 'Cuộc trò chuyện mới')}
+                  title={t('chat.newChat') || "Tạo cuộc trò chuyện mới"}
+                  data-testid="new-chat-button"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                </Button>
+              )}
+
               <Button
                 variant="ghost"
                 size="icon"
                 className="h-7 w-7 text-slate-500 hover:text-slate-800"
                 onClick={() => setSessionManagerOpen(true)}
-                title="Lịch sử trò chuyện"
+                title={t('chat.sessionsTitle') || "Lịch sử trò chuyện"}
+                data-testid="chat-history-button"
               >
-                <RotateCw className="h-3.5 w-3.5" />
+                <Clock className="h-3.5 w-3.5" />
               </Button>
             </div>
           </div>

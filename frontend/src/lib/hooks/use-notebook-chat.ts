@@ -318,6 +318,7 @@ export function useNotebookChat({ notebookId, sources, notes, contextSelections 
     switchSession,
     sendMessage,
     setModelOverride,
-    refetchSessions
+    refetchSessions,
+    refetchCurrentSession
   }
 }

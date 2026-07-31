@@ -3,6 +3,7 @@
 import { useRouter, useParams } from 'next/navigation'
 import { useCallback } from 'react'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 import { ArrowLeft } from 'lucide-react'
 import { useSourceChat } from '@/lib/hooks/use-source-chat'
 import { ChatPanel } from '@/components/sources/ChatPanel'
@@ -23,6 +24,16 @@ export default function SourceDetailPage() {
     router.push(returnPath)
     navigation.clearReturnTo()
   }, [navigation, router])
+
+  const handleRefreshChat = useCallback(async () => {
+    try {
+      await chat.refetchCurrentSession()
+      await chat.refetchSessions()
+      toast.success('Đã làm mới cuộc trò chuyện')
+    } catch {
+      toast.error('Không thể làm mới cuộc trò chuyện')
+    }
+  }, [chat])
 
   return (
     <div className="flex flex-col h-screen">
@@ -70,6 +81,7 @@ export default function SourceDetailPage() {
             onUpdateSession={(sessionId, title) => chat.updateSession(sessionId, { title })}
             onDeleteSession={chat.deleteSession}
             loadingSessions={chat.loadingSessions}
+            onRefreshChat={handleRefreshChat}
           />
         </div>
       </div>

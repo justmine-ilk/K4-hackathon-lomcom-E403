@@ -28,6 +28,8 @@ function createChatMock() {
     charCount: 0,
     sessions: [],
     currentSessionId: null,
+    refetchCurrentSession: vi.fn().mockResolvedValue(undefined),
+    refetchSessions: vi.fn().mockResolvedValue(undefined),
   } as unknown as ReturnType<typeof useNotebookChat>
 }
 

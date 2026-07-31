@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
+import { toast } from 'sonner'
 import { useNotebookChat } from '@/lib/hooks/use-notebook-chat'
 import { useNotes } from '@/lib/hooks/use-notes'
 import { ChatPanel } from '@/components/sources/ChatPanel'
@@ -39,6 +40,17 @@ export function ChatColumn({ notebookId, contextSelections, sources, sourcesLoad
     notes,
     contextSelections
   })
+
+  // Handle refreshing current chat session and sessions list
+  const handleRefreshChat = useCallback(async () => {
+    try {
+      await chat.refetchCurrentSession()
+      await chat.refetchSessions()
+      toast.success(t('chat.chatRefreshed') || 'Đã làm mới cuộc trò chuyện')
+    } catch {
+      toast.error(t('chat.failedToRefreshChat') || 'Không thể làm mới cuộc trò chuyện')
+    }
+  }, [chat, t])
 
   // Calculate context stats for indicator
   const contextStats = useMemo(() => {
@@ -128,6 +140,7 @@ export function ChatColumn({ notebookId, contextSelections, sources, sourcesLoad
           loadingSessions={chat.loadingSessions}
           notebookContextStats={contextStats}
           notebookId={notebookId}
+          onRefreshChat={handleRefreshChat}
         />
       </div>
     </CollapsibleColumn>

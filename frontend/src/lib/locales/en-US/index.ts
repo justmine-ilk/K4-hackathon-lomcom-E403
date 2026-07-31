@@ -451,7 +451,7 @@ export const enUS = {
     pressToSend: "Nhấn {{key}} để gửi",
     model: "Mô hình",
     createToStart: "Tạo một phiên để bắt đầu.",
-    chatWithNotebook: "Trò chuyện với Lớp học",
+    chatWithNotebook: "Chat với Vlearn Tutor",
     unableToLoadChat: "Không thể tải cuộc trò chuyện",
     noDescription: "Không có mô tả",
     startByCreating: "Bắt đầu bằng cách tạo lớp học đầu tiên của bạn để tổ chức tài liệu nghiên cứu.",

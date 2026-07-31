@@ -250,6 +250,7 @@ export function useSourceChat(sourceId: string) {
     switchSession,
     sendMessage,
     cancelStreaming,
-    refetchSessions
+    refetchSessions,
+    refetchCurrentSession
   }
 }
