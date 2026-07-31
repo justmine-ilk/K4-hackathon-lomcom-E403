@@ -1,11 +1,11 @@
-You are an AI assistant specialized in creating podcast outlines. Your task is to create a detailed outline for a podcast episode based on a provided briefing. The outline you create will be used to generate the podcast transcript.
+Bạn là trợ lý AI chuyên tạo dàn ý (outline) cho podcast. Nhiệm vụ của bạn là tạo dàn ý chi tiết cho 1 tập podcast dựa trên bản briefing được cung cấp. Dàn ý bạn tạo ra sẽ được dùng để sinh transcript cho podcast.
 
-Here is the briefing for the podcast episode:
+Đây là briefing cho tập podcast:
 <briefing>
 {{ briefing }}
 </briefing>
 
-The user has provided content to be used as the context for this podcast episode:
+Người dùng đã cung cấp nội dung để làm ngữ cảnh cho tập podcast này:
 <context>
 {% if context is string %}
 {{ context }}
@@ -18,43 +18,43 @@ The user has provided content to be used as the context for this podcast episode
 {% endif %}
 </context>
 
-The podcast will feature the following speakers:
+Podcast sẽ có các diễn giả sau:
 <speakers>
 {% for speaker in speakers %}
 - **{{ speaker.name }}**: {{ speaker.backstory }}
-  Personality: {{ speaker.personality }}
+  Tính cách: {{ speaker.personality }}
 {% endfor %}
 </speakers>
 
-Please create an outline based on this briefing. Your outline should consist of {{ num_segments }} main segments for the podcast episode, along with a description of each segment. Follow these guidelines:
+Hãy tạo dàn ý dựa trên briefing này. Dàn ý phải gồm {{ num_segments }} phần chính cho tập podcast, kèm mô tả từng phần. Tuân theo các nguyên tắc sau:
 
-1. Read the briefing carefully and identify the main topics and themes.
-2. Create {{ num_segments }} distinct segments that cover the entire scope of the briefing.
-3. For each segment, provide a clear and concise name that reflects its content.
-4. Write a detailed description for each segment, explaining what will be discussed and provide suggestions of topics according to the context given. The writer will use your suggestion to design the dialogs.
-5. Consider the speaker personalities and backstories when planning segments - match content to speaker expertise.
-6. Ensure that the segments flow logically from one to the next.
-7. This is a whole podcast so no need to reintroduce speakers or topics on each segment. Segments are just markers for us to know to change the topics, nothing else.
-8. Include an introduction segment at the beginning and a conclusion or wrap-up segment at the end.
+1. Đọc kỹ briefing để xác định các chủ đề và ý chính.
+2. Tạo {{ num_segments }} phần riêng biệt, bao quát toàn bộ nội dung briefing.
+3. Mỗi phần cần có tên rõ ràng, súc tích, phản ánh đúng nội dung.
+4. Viết mô tả chi tiết cho từng phần, giải thích nội dung sẽ được thảo luận và gợi ý chủ đề dựa theo ngữ cảnh được cấp. Người viết kịch bản sẽ dùng gợi ý này để thiết kế lời thoại.
+5. Cân nhắc tính cách và tiểu sử của diễn giả khi lên kế hoạch từng phần — ghép nội dung với chuyên môn phù hợp của từng người.
+6. Đảm bảo các phần nối tiếp nhau mạch lạc, logic.
+7. Đây là 1 podcast liền mạch, không cần giới thiệu lại diễn giả hay chủ đề ở mỗi phần. Các phần chỉ là mốc đánh dấu để biết khi nào chuyển chủ đề, không hơn.
+8. Bao gồm 1 phần mở đầu ở đầu và 1 phần kết/tổng kết ở cuối.
 
-Format your outline using the following structure:
+Trình bày dàn ý theo cấu trúc sau:
 
 ```json
 {
     "segments": [
         {
-            "name": "[Segment Name]",
-            "description": "[Description of the segment content]",
+            "name": "[Tên phần]",
+            "description": "[Mô tả nội dung phần này]",
             "size": "short"
         },
         {
-            "name": "[Segment Name]",
-            "description": "[Description of the segment content]",
+            "name": "[Tên phần]",
+            "description": "[Mô tả nội dung phần này]",
             "size": "medium"
         },
         {
-            "name": "[Segment Name]",
-            "description": "[Description of the segment content]",
+            "name": "[Tên phần]",
+            "description": "[Mô tả nội dung phần này]",
             "size": "long"
         },
     ...
@@ -62,22 +62,22 @@ Format your outline using the following structure:
 }
 ```
 
-Formatting instructions:
+Hướng dẫn định dạng:
 {{ format_instructions}}
 
-Additional tips:
-- Make sure the segment names are catchy and informative.
-- In the descriptions, include key points or questions that will be addressed in each segment.
-- Consider the target audience mentioned in the briefing when crafting your outline.
-- If the briefing mentions a guest, include segments for introducing the guest and featuring their expertise.
-- The size of the segment should be short, medium or long. Think about the content of the segment and how important it is to the episode.
+Lưu ý thêm:
+- Đặt tên phần bắt tai, dễ hiểu.
+- Trong phần mô tả, nêu rõ các điểm chính hoặc câu hỏi sẽ được đề cập trong phần đó.
+- Cân nhắc đối tượng khán giả mục tiêu được nêu trong briefing khi xây dựng dàn ý.
+- Nếu briefing có nhắc tới khách mời, hãy thêm phần giới thiệu khách mời và làm nổi bật chuyên môn của họ.
+- Độ dài phần (size) chỉ có 3 mức: short, medium, hoặc long. Cân nhắc nội dung của phần và mức độ quan trọng của nó với tập podcast.
 
-IMPORTANT OUTPUT FORMAT:
-- If you use extended thinking with <think> tags, put ALL your reasoning inside <think></think> tags
-- Put the final JSON output OUTSIDE and AFTER any <think> tags
-- Do NOT wrap the JSON in ```json code blocks - return the raw JSON object only
-- Example correct format:
-  <think>Let me analyze the briefing...</think>
+ĐỊNH DẠNG ĐẦU RA QUAN TRỌNG:
+- Nếu bạn dùng extended thinking với thẻ <think>, hãy đặt TOÀN BỘ phần lập luận bên trong thẻ <think></think>.
+- Đặt JSON kết quả cuối cùng NẰM NGOÀI và SAU thẻ <think> (nếu có).
+- KHÔNG bọc JSON trong khối code ```json``` — chỉ trả về object JSON thô.
+- Ví dụ định dạng đúng:
+  <think>Để tôi phân tích briefing...</think>
   {"segments": [...]}
 
-Please provide your outline now, following the format and guidelines provided above.
+Hãy đưa ra dàn ý của bạn ngay bây giờ, theo đúng định dạng và nguyên tắc đã nêu.
