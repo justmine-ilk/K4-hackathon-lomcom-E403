@@ -47,8 +47,8 @@ const getNavigation = (t: TFunction) => [
   {
     title: t('navigation.process'),
     items: [
-      { name: t('navigation.notebooks'), href: '/notebooks', icon: GraduationCap, iconClass: 'text-teal' },
-      // { name: t('navigation.askAndSearch'), href: '/search', icon: Search, iconClass: undefined },
+      { name: t('navigation.notebooks'), href: '/notebooks', icon: GraduationCap, iconClass: 'undefined' },
+      { name: t('navigation.askAndSearch'), href: '/search', icon: Search, iconClass: undefined },
     ],
   },
   // {

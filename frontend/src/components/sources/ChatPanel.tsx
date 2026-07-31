@@ -280,6 +280,7 @@ function ChatComposer({
             onClick={handleSend}
             disabled={!input.trim() || isStreaming}
             size="icon"
+            data-testid="send-button"
             className="h-8 w-8 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/20"
           >
             {isStreaming ? (

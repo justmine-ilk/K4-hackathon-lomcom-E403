@@ -36,7 +36,7 @@ describe('ChatPanel composer', () => {
     const textarea = getTextarea()
     fireEvent.change(textarea, { target: { value: '  hello world  ' } })
 
-    const sendButton = screen.getByRole('button')
+    const sendButton = screen.getByTestId('send-button')
     fireEvent.click(sendButton)
 
     expect(onSendMessage).toHaveBeenCalledTimes(1)
