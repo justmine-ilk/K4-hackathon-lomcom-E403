@@ -144,14 +144,14 @@ export function NotebookHeader({ notebook, isAdmin = false, onToggleAdmin }: Not
             <MessageSquare className="h-3.5 w-3.5 text-blue-500" />
             Trợ lý AI Chat
           </button>
-
+{/* 
           <button
             onClick={() => { setActiveTab('breakthrough'); setPresetSplit(); }}
             className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800 border border-indigo-200/80 shadow-sm"
           >
-            <Sparkles className="h-3.5 w-3.5 text-indigo-600 animate-spin" />
+            <Sparkles className="h-3.5 w-3.5 text-indigo-600" />
             Phân tích Đột phá UI
-          </button>
+          </button> */}
         </div>
 
         {/* Right: Quick Action Buttons & Avatar */}

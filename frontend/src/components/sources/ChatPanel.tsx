@@ -243,11 +243,11 @@ export function ChatPanel({
         />
 
         {/* Floating Quick Action Pill on bottom right matching Target UI */}
-        <div className="absolute bottom-16 right-4 z-10 pointer-events-none">
+        {/* <div className="absolute bottom-16 right-4 z-10 pointer-events-none">
           <div className="pointer-events-auto p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl flex items-center gap-1">
             <Sparkles className="h-4 w-4 text-indigo-600 animate-bounce" />
           </div>
-        </div>
+        </div> */}
       </Card>
     </>
   )

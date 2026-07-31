@@ -110,7 +110,7 @@ export default function NotebooksPage() {
         {/* Course & Class Selection Filter Bar */}
         <div className="flex flex-wrap items-center gap-4 p-4 rounded-lg border bg-card/50">
           <div className="flex items-center gap-2">
-            <GraduationCap className="h-4 w-4 text-teal" />
+            <GraduationCap className="h-4 w-4 " />
             <span className="text-sm font-medium">Khóa học:</span>
             <Select value={selectedCourse} onValueChange={setSelectedCourse}>
               <SelectTrigger className="w-[180px] h-8 text-xs">
