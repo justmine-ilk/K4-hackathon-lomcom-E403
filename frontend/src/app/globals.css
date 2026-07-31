@@ -136,13 +136,13 @@
   /* --------------------------------------------------------------
      core palette — the owned hues, red-free
      -------------------------------------------------------------- */
-  --fern: #2e6b4f;
-  --fern-deep: #245740;
-  --fern-tint: #dfeae2;
+  --fern: #4f46e5;
+  --fern-deep: #4338ca;
+  --fern-tint: #e0e7ff;
 
-  --sage: #5e7a54;
-  --sage-deep: #47603f;
-  --sage-tint: #e5ebdc;
+  --sage: #7c3aed;
+  --sage-deep: #6d28d9;
+  --sage-tint: #ede9fe;
 
   --gold: #a97b12;
   --gold-deep: #7c5a05;
@@ -190,9 +190,9 @@
   --line-soft: #e8e8e2;
   --line-strong: #23252a;
 
-  --primary: #2e6b4f;
-  --primary-hover: #245740;
-  --on-primary: #f1f8f3;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --on-primary: #ffffff;
 
   --danger: #b0432d;
   --danger-deep: #93341f;
@@ -300,12 +300,12 @@
    ========================================================================== */
 .dark {
   /* core palette */
-  --fern: #55b285;
-  --fern-deep: #6cc298;
-  --fern-tint: #1b2f25;
-  --sage: #93b084;
-  --sage-deep: #a8c299;
-  --sage-tint: #232b1d;
+  --fern: #818cf8;
+  --fern-deep: #a5b4fc;
+  --fern-tint: #1e1b4b;
+  --sage: #a78bfa;
+  --sage-deep: #c4b5fd;
+  --sage-tint: #2e1065;
   --gold: #cfa13e;
   --gold-deep: #ddb55f;
   --gold-tint: #322b1b;
@@ -344,9 +344,9 @@
   --line-soft: #26282d;
   --line-strong: #ecedea;
 
-  --primary: #3d8e67;
-  --primary-hover: #479e74;
-  --on-primary: #ecf7f0;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --on-primary: #ffffff;
 
   --danger: #df7c63;
   --danger-deep: #e9937d;

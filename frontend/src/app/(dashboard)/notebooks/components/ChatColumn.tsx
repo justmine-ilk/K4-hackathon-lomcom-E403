@@ -107,7 +107,7 @@ export function ChatColumn({ notebookId, contextSelections, sources, sourcesLoad
       collapsedLabel={t('chat.chatWithNotebook')}
     >
       <div className="h-full relative">
-        <div className="absolute top-3.5 right-4 z-20">
+        <div className="absolute !top-2 right-4 z-20">
           {collapseButton}
         </div>
         <ChatPanel

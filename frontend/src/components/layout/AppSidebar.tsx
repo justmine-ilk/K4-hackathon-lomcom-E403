@@ -72,9 +72,9 @@ const getNavigation = (t: TFunction) => [
 function LogoPebbles({ className }: { className?: string }) {
   return (
     <span className={cn('flex items-center gap-[3px]', className)} aria-hidden="true">
-      <span className="size-[9px] rounded-[3px] bg-fern" />
-      <span className="size-[9px] rounded-[3px] bg-gold" />
-      <span className="size-[9px] rounded-[3px] bg-teal" />
+      <span className="size-[9px] rounded-[3px] bg-indigo-600" />
+      <span className="size-[9px] rounded-[3px] bg-violet-600" />
+      <span className="size-[9px] rounded-[3px] bg-purple-500" />
     </span>
   )
 }
@@ -177,7 +177,7 @@ export function AppSidebar() {
                         onClick={() => setCreateMenuOpen(true)}
                         variant="default"
                         size="sm"
-                        className="w-full justify-center px-2 font-display font-bold"
+                        className="w-full justify-center px-2 font-display font-bold bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-700 hover:to-violet-700 shadow-sm border-0"
                         aria-label={t('common.create')}
                       >
                         <Plus className="h-4 w-4" />
@@ -192,7 +192,7 @@ export function AppSidebar() {
                     onClick={() => setCreateMenuOpen(true)}
                     variant="default"
                     size="sm"
-                    className="w-full justify-start font-display font-bold"
+                    className="w-full justify-start font-display font-bold bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-700 hover:to-violet-700 shadow-sm border-0"
                    >
                     <Plus className="h-4 w-4 mr-2" />
                     {t('common.create')}
@@ -259,11 +259,11 @@ export function AppSidebar() {
                       className={cn(
                         'w-full gap-2.5 text-[13px] font-medium text-sidebar-foreground/80 sidebar-menu-item relative',
                         isActive &&
-                          'bg-popover font-semibold text-sidebar-foreground ring-1 ring-inset ring-border before:absolute before:-left-1.5 before:top-[7px] before:bottom-[7px] before:w-[3px] before:rounded-[2px] before:bg-fern',
+                          'bg-gradient-to-r from-indigo-600 to-violet-600 font-semibold text-white shadow-sm before:absolute before:-left-1.5 before:top-[7px] before:bottom-[7px] before:w-[3px] before:rounded-[2px] before:bg-violet-300',
                         isCollapsed ? 'justify-center px-2' : 'justify-start'
                       )}
                     >
-                      <item.icon className={cn('h-4 w-4 opacity-85', item.iconClass)} />
+                      <item.icon className={cn('h-4 w-4 opacity-85', isActive ? 'text-white' : item.iconClass)} />
                       {!isCollapsed && <span>{item.name}</span>}
                     </Button>
                   )

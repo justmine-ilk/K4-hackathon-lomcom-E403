@@ -107,7 +107,7 @@ export function ChatPanel({
       <Card className="h-full flex flex-col flex-1 overflow-hidden border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm bg-card relative">
         
         {/* Header Bar matching Target UI */}
-        <CardHeader className="py-3 px-4 border-b flex-shrink-0 bg-slate-50/70 dark:bg-slate-900/70">
+        <CardHeader className="!py-1 px-4 border-b flex-shrink-0 bg-slate-50/70 dark:bg-slate-900/70">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="w-8 h-8 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 shrink-0">
@@ -135,22 +135,22 @@ export function ChatPanel({
         {/* Quick Suggestion Chips matching Target UI */}
         <div className="flex items-center gap-2 overflow-x-auto p-3 border-b bg-slate-50/30 dark:bg-slate-900/30 no-scrollbar flex-shrink-0">
           <button
-            onClick={() => onSendMessage("Tóm tắt trang 2 của k3_tech_report.pdf")}
+            onClick={() => onSendMessage("Tóm tắt tài liệu")}
             className="px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-700 dark:text-slate-300 hover:text-indigo-600 border border-slate-200/80 dark:border-slate-700 text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-sm"
           >
-            ✍ Tóm tắt trang 2
+            Tóm tắt tài liệu
           </button>
           <button
-            onClick={() => onSendMessage("So sánh K3 và K2 trong báo cáo technical report")}
+            onClick={() => onSendMessage("Thông tin tổng quan về buổi học")}
             className="px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-700 dark:text-slate-300 hover:text-indigo-600 border border-slate-200/80 dark:border-slate-700 text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-sm"
           >
-            So sánh K3 & K2
+            Thông tin về buổi học
           </button>
           <button
-            onClick={() => onSendMessage("Trích xuất các tham số chính của kiến trúc MoE")}
+            onClick={() => onSendMessage("Những điều cần lưu ý")}
             className="px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-700 dark:text-slate-300 hover:text-indigo-600 border border-slate-200/80 dark:border-slate-700 text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-sm"
           >
-            Trích xuất tham số MoE
+            Những điểm cần lưu ý 
           </button>
         </div>
 
@@ -314,11 +314,13 @@ const ChatMessage = memo(function ChatMessage({
         </div>
       )}
 
-      <div className={`flex flex-col gap-1 max-w-[85%] ${isUser ? 'items-end' : 'items-start'}`}>
+<div className={`flex flex-col gap-1 max-w-[85%] ${isUser ? 'items-end' : 'items-start'}`}>
         <div
           className={`p-3.5 px-4 text-xs sm:text-sm leading-relaxed shadow-sm ${
             isUser
-              ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-2xl rounded-tr-sm font-medium'
+              // USER BUBBLE: Added [&_*]:text-white to force all markdown text to be white
+              ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white [&_*]:text-white rounded-2xl rounded-tr-sm font-medium'
+              // AI BUBBLE: Removed the extra text-white so it stays dark gray (text-slate-800 dark:text-slate-200)
               : 'bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl rounded-tl-sm'
           }`}
         >

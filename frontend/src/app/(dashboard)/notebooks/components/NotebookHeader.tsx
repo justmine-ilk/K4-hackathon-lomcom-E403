@@ -84,18 +84,19 @@ export function NotebookHeader({ notebook, isAdmin = false, onToggleAdmin }: Not
               )}
 
               {/* Permission Role Badge */}
-              <button
-                onClick={onToggleAdmin}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
-                  isAdmin
-                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800'
-                    : 'bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100 dark:bg-teal-950/40 dark:text-teal-300 dark:border-teal-800'
-                }`}
-                title="Bấm để chuyển đổi quyền Admin / Học viên"
-              >
-                <span className={`w-1.5 h-1.5 rounded-full ${isAdmin ? 'bg-emerald-500' : 'bg-teal-500'} animate-pulse`} />
-                {isAdmin ? 'Quyền: Admin (Được up bài)' : 'Quyền: Học viên (Xem)'}
-              </button>
+{/* Permission Role Badge */}
+<button
+  onClick={onToggleAdmin}
+  className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer shadow-sm hover:shadow hover:opacity-90 ${
+    isAdmin
+      ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-transparent'
+      : 'bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
+  }`}
+  title="Bấm để chuyển đổi quyền Admin / Học viên"
+>
+  <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isAdmin ? 'bg-white' : 'bg-slate-500 dark:bg-slate-400'}`} />
+  {isAdmin ? 'Admin' : 'Học viên (Read-Only)'}
+</button>
             </div>
 
             <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
@@ -124,11 +125,11 @@ export function NotebookHeader({ notebook, isAdmin = false, onToggleAdmin }: Not
             onClick={() => { setActiveTab('pdf'); setPresetPdfFocus(); }}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === 'pdf'
-                ? 'bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 shadow-sm font-semibold'
+                ? 'bg-white dark:bg-slate-900 text-violet-600 dark:text-violet-400 shadow-sm font-semibold'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            <BookOpen className="h-3.5 w-3.5 text-emerald-500" />
+            <BookOpen className="h-3.5 w-3.5 text-violet-500" />
             Tập trung đọc PDF
           </button>
 

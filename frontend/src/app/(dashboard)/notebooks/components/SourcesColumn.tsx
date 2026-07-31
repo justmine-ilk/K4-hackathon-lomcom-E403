@@ -163,7 +163,7 @@ export function SourcesColumn({
         collapsedLabel={t('navigation.sources')}
       >
         <Card className="h-full flex flex-col flex-1 overflow-hidden border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm bg-card">
-          <CardHeader className="py-3.5 px-4 border-b flex-shrink-0 bg-slate-50/50 dark:bg-slate-900/50">
+          <CardHeader className="!py-1 px-4 border-b flex-shrink-0 bg-slate-50/50 dark:bg-slate-900/50">
             <div className="flex items-center justify-between gap-2">
               <CardTitle className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 <FileText className="h-4 w-4 text-indigo-500" />
@@ -195,7 +195,7 @@ export function SourcesColumn({
             </div>
           </CardHeader>
 
-          <CardContent ref={scrollContainerRef} className="flex-1 p-3 overflow-y-auto min-h-0 space-y-3">
+          <CardContent ref={scrollContainerRef} className="flex-1 p-2 overflow-y-auto min-h-0 space-y-2">
             {/* Primary Add Source Button - Dashed border pill matching target UI */}
             {isAdmin ? (
               <button
@@ -226,7 +226,7 @@ export function SourcesColumn({
                 description={t('sources.createFirstSource')}
               />
             ) : (
-              <div className="space-y-2.5">
+              <div className="space-y-1">
                 {sources.map((source) => {
                   const isSelected = selectedSourceId === source.id
                   return (
